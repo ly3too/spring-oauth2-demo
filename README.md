@@ -1,4 +1,6 @@
 # A minimal just-working spring security OAuth2 demo
+With spring-boot 2.3.3.RELEASE and spring-security and spring-cloud-oauth2.
+
 The demo only use in memory storage without any persist datasource.
 
 The demo includes an **oauth-server**, **oauth-client** and a **resource-server**.
