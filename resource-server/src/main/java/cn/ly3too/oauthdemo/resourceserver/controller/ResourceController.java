@@ -9,19 +9,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class ResourceController {
     private static Logger log = LoggerFactory.getLogger(RestController.class);
 
-    @GetMapping("/")
+    @GetMapping("/user")
     public OAuth2AuthenticatedPrincipal index(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {
         log.info("== authorities" + principal.getAuthorities());
         return principal;
     }
 
     @GetMapping("/message")
-    public String message() {
-        return "secret message. need user or admin authorities";
+    public Map<String, Object> message(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal user) {
+        HashMap<String, Object> ret = new HashMap<>();
+        ret.put("message", "secret message");
+        ret.put("note", "need user or admin to access");
+        ret.put("principle", user);
+        return ret;
     }
 
     @PostMapping("/message")

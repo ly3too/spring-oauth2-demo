@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>OAuth2 WebClient Showcase</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+<li sec:authorize="!isAuthenticated()" class="nav-item">
+    <a class="btn btn-outline-light" th:href="@{/login}">Login</a>
+</li>
+<li sec:authorize="isAuthenticated()" class="nav-item">
+    <p>username: <span th:text ="${#authentication.getName()}"></span> </p>
+    <a class="btn btn-outline-light" th:href="@{/logout}">Logout</a>
+</li>
+
+<h1>Examples</h1>
+
+<h2>@RegisteredOAuth2AuthorizedClient</h2>
+<p>
+    Examples on requesting protected resource, with injected client using annotation method.
+<h3>Authenticated</h3>
+<ul>
+    <li><a th:href="@{/annotation/explicit}">Get message from resource server (Explicit)</a> - Explicitly provide a Client Registration Id</li>
+    <li>
+        <a th:href="@{/annotation/implicit}">Get message from resource server (Implicit)</a> - Use the currently logged in user's OAuth Token. This will
+        only work if the user authenticates with oauth2Login and the token provided is the correct token provided at
+        log in is authorized.</li>
+</ul>
+<h3>Public</h3>
+<ul>
+    <li><a th:href="@{/public/annotation/explicit}">Get message from resource server (Explicit)</a> - Explicitly provide a Client Registration Id</li>
+    <li>
+        <a th:href="@{/public/annotation/implicit}">Get message from resource server (Implicit)</a> - This will fail if the user is not authenticated.
+        Since it is mapped to permitAll, it is going to fail unless the user already took an action to log in and then
+        authenticates with oauth2Login()</li>
+</ul>
+
+<h2>ServletOAuth2AuthorizedClientExchangeFilterFunction</h2>
+<p>
+    Examples on OAuth2WebClientController that demonstrate how to use ServletOAuth2AuthorizedClientExchangeFilterFunction
+<p>
+    Only admin user can send message.
+<h3>Authenticated</h3>
+<ul>
+    <li><a th:href="@{/webclient/explicit}">Send message to resource server (Explicit)</a> - Explicitly provide a Client Registration Id</li>
+    <p>will faile if you login with normal user </p>
+    <li>
+        <a th:href="@{/webclient/implicit}">Send message to resource server (Implicit)</a> - Use the currently logged in user's OAuth Token. This will
+        only work if the user authenticates with oauth2Login and the token provided is the correct token provided at
+        log in is authorized.</li>
+</ul>
+<h3>Public</h3>
+<ul>
+    <li><a th:href="@{/public/webclient/explicit}">Send message to resource server (Explicit)</a> - Explicitly provide a Client Registration Id</li>
+    <li>
+        <a th:href="@{/public/webclient/implicit}">Send message to resource server (Implicit)</a> - This will fail if the user is not authenticated.
+        Since it is mapped to permitAll, it is going to fail unless the user already took an action to log in and then
+        authenticates with oauth2Login()</li>
+</ul>
+</body>
+</html>

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class ClientDetailServiceImpl implements ClientDetailsService {
     private Logger log = LoggerFactory.getLogger(ClientDetailsService.class);
 
-    @Value("${client.defaultRedirectUri:localhost:8082}")
+    @Value("${client.defaultRedirectUri:http://localhost:8082}")
     private String defaultRediectUri;
 
     @Autowired
@@ -31,6 +31,7 @@ public class ClientDetailServiceImpl implements ClientDetailsService {
     @Override
     public ClientDetails loadClientByClientId(String s) throws ClientRegistrationException {
         log.info("== querying client: " + s);
+        // in real application, client configuration should be queried from persisted database
         BaseClientDetails client = new BaseClientDetails(s, "", s, "password,refresh_token,authorization_code,implicit", s, defaultRediectUri);
         client.setClientSecret(passwordEncoder.encode(s));
         return client;
