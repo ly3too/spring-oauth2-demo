@@ -23,7 +23,7 @@ public class RegisteredOAuth2AuthorizedClientController {
 	}
 
 	@GetMapping("/explicit")
-	String explicit(Model model, @RegisteredOAuth2AuthorizedClient("myclient") OAuth2AuthorizedClient authorizedClient) {
+	String explicit(Model model, @RegisteredOAuth2AuthorizedClient("oauth-server") OAuth2AuthorizedClient authorizedClient) {
 		String body = this.webClient
 				.get()
 				.attributes(oauth2AuthorizedClient(authorizedClient))

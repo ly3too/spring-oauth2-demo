@@ -44,7 +44,7 @@ public class OAuth2WebClientController {
 		String body = this.webClient
 			.post().header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED.toString())
 			.body(BodyInserters.fromFormData("message", "secret message"))
-			.attributes(clientRegistrationId("myclient"))
+			.attributes(clientRegistrationId("oauth-server"))
 			.retrieve()
 			.bodyToMono(String.class)
 			.block();

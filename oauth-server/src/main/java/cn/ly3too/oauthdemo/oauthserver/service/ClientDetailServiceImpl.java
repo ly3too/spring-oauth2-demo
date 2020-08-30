@@ -32,7 +32,7 @@ public class ClientDetailServiceImpl implements ClientDetailsService {
     public ClientDetails loadClientByClientId(String s) throws ClientRegistrationException {
         log.info("== querying client: " + s);
         // in real application, client configuration should be queried from persisted database
-        BaseClientDetails client = new BaseClientDetails(s, "", s, "password,refresh_token,authorization_code,implicit", s, defaultRediectUri);
+        BaseClientDetails client = new BaseClientDetails(s, "", s, "password,refresh_token,authorization_code,implicit,client_credentials", s, defaultRediectUri);
         client.setClientSecret(passwordEncoder.encode(s));
         return client;
     }
